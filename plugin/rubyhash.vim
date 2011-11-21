@@ -1,3 +1,3 @@
 function! ToSymbolKeysLinewise()
-  .s/['"]\(\w\+\)['"]=>/:\1=>/g
+  .s/['"]\(\w\+\)['"]\(\s*=>\)/:\1\2/g
 endfunction
