@@ -23,6 +23,14 @@ describe "rubyhash plugin" do
       result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
       result.body.should == "{:key_one =>'value_one', :keytwo => 'value:two', :keythree => 'value3', :key4 => My::Class}"
     end
+
+    it "leaves existing symbol keys untouched when converting to symbol keys" do
+      input_buffer = "{ change_me: 'ping', :leave_me => 'pang', 'change_me_too' => 'pong' }"
+      @commands += [ ":call ToSymbolKeysLinewise()"]
+
+      result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
+      result.body.should == "{ :change_me => 'ping', :leave_me => 'pang', :change_me_too => 'pong' }"
+    end
   end
 
   describe "operating on a single line containing a snippet of a hash" do
@@ -40,6 +48,14 @@ describe "rubyhash plugin" do
 
       result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
       result.body.should == "   :key_one =>'value_one', :keytwo => 'value:two', :keythree => 'value3', :key4 => My::Class"
+    end
+
+    it "leaves existing symbol keys untouched when converting to symbol keys" do
+      input_buffer = " change_me: 'ping', :leave_me => 'pang', 'change_me_too' => 'pong' "
+      @commands += [ ":call ToSymbolKeysLinewise()"]
+
+      result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
+      result.body.should == " :change_me => 'ping', :leave_me => 'pang', :change_me_too => 'pong' "
     end
   end
 
