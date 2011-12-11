@@ -59,6 +59,16 @@ describe "rubyhash plugin" do
         result.body.should == %q|{key_one:"val_one", key_two: "val_two"}|
       end
     end
+
+    describe "converting to string keys" do
+      it "converts symbol keys" do
+        input_buffer = %q{{:key_one=>'val_one', :key_two => "val_two"}}
+        @commands += [ ":call ToStringKeysLinewise()"]
+
+        result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
+        result.body.should == %q|{"key_one"=>'val_one', "key_two" => "val_two"}|
+      end
+    end
   end
 
   describe "operating on a single line containing a snippet of a hash" do
@@ -111,6 +121,16 @@ describe "rubyhash plugin" do
 
         result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
         result.body.should == %q|key_one:"val_one", key_two: "val_two"|
+      end
+    end
+
+    describe "converting to string keys" do
+      it "converts symbol keys" do
+        input_buffer = %q|:key_one=>'val_one', :key_two => "val_two"|
+        @commands += [ ":call ToStringKeysLinewise()"]
+
+        result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
+        result.body.should == %q|"key_one"=>'val_one', "key_two" => "val_two"|
       end
     end
   end
