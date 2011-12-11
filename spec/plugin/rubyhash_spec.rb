@@ -68,6 +68,15 @@ describe "rubyhash plugin" do
         result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
         result.body.should == %q|{"key_one"=>'val_one', "key_two" => "val_two"}|
       end
+
+      it "converts Ruby 1.9 style keys to symbols" do
+        input_buffer = "{key_one:'value_one', keytwo: 'value:two', keythree: 'value3', key4: My::Class}"
+        @commands += [ ":call ToStringKeysLinewise()"]
+
+        result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
+        result.body.should == %q|{"key_one" =>'value_one', "keytwo" => 'value:two', "keythree" => 'value3', "key4" => My::Class}|
+      end
+
     end
   end
 
@@ -131,6 +140,14 @@ describe "rubyhash plugin" do
 
         result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
         result.body.should == %q|"key_one"=>'val_one', "key_two" => "val_two"|
+      end
+
+      it "converts Ruby 1.9 style keys to symbols" do
+        input_buffer = "key_one:'value_one', keytwo: 'value:two', keythree: 'value3', key4: My::Class"
+        @commands += [ ":call ToStringKeysLinewise()"]
+
+        result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
+        result.body.should == %q|"key_one" =>'value_one', "keytwo" => 'value:two', "keythree" => 'value3', "key4" => My::Class|
       end
     end
   end
