@@ -8,8 +8,7 @@ function! To19KeysLinewise()
 endfunction
 
 function! ToStringKeysLinewise()
-  .s/\v:(\w+)(\s*)\=\>/"\1"\2=>/g
-  .s/\v(\{|,|^)\s*\zs(\w+):/"\2" =>/g
+  :ruby Convert::to_strings
 endfunction
 
 ruby << EOF
@@ -18,6 +17,13 @@ module Convert
     contents = VIM::Buffer.current.line
     contents.gsub!(/['"](\w+)['"](\s*=>)/, ':\1\2')
     contents.gsub!(/((?:\{|,|^)\s*)(\w+):/, '\1:\2 =>')
+    VIM::Buffer.current.line = contents
+  end
+
+  def self.to_strings
+    contents = VIM::Buffer.current.line
+    contents.gsub!(/:(\w+)(?=\s*=>)/, '"\1"')
+    contents.gsub!(/((?:\{|,|^)\s*)(\w+):/, '\1"\2" =>')
     VIM::Buffer.current.line = contents
   end
 end
