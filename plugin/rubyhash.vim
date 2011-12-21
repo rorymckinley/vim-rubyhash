@@ -15,7 +15,7 @@ ruby << EOF
 module Convert
   def self.to_symbols
     contents = VIM::Buffer.current.line
-    contents.gsub!(/['"](\w+)['"](?=\s*=>)/, ':\1\2')
+    contents.gsub!(/['"](\w+)['"](?=\s*=>)/, ':\1')
     contents.gsub!(/((?:\{|,|^)\s*)(\w+):/, '\1:\2 =>')
     VIM::Buffer.current.line = contents
   end
