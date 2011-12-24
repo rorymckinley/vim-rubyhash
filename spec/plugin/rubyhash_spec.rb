@@ -162,4 +162,34 @@ describe "rubyhash plugin" do
 
   end
 
+  describe "default keymappings" do
+    before(:each) do
+      @commands << ":let mapleader='\'"
+    end
+
+    it "converts to symbols with the sequence <Leader>rs" do
+      input_buffer = %q|'key_one' => 'one'|
+      @commands += [ '\rs' ]
+
+      result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
+      result.body.should == %q|:key_one => 'one'|
+    end
+
+    it "converts to strings with the sequence <Leader>rt" do
+      input_buffer = %q|:key_one => 'one'|
+      @commands += [ '\rt' ]
+
+      result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
+      result.body.should == %q|"key_one" => 'one'|
+    end
+
+    it "converts to Ruby1.9 keys with the sequence <Leader>rr" do
+      input_buffer = %q|:key_one => 'one'|
+      @commands += [ '\rr' ]
+
+      result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
+      result.body.should == %q|key_one: 'one'|
+    end
+
+  end
 end

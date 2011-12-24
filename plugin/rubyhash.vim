@@ -1,3 +1,10 @@
+" if !exists('g:rubyhash_map_keys')
+"   let g:rubyhash_map_keys=1
+" endif
+nnoremap <silent> <Leader>rs :call ToSymbolKeysLinewise()<CR>
+nnoremap <silent> <Leader>rt :call ToStringKeysLinewise()<CR>
+nnoremap <silent> <Leader>rr :call To19KeysLinewise()<CR>
+
 function! ToSymbolKeysLinewise()
   :ruby Convert::to_symbols
 endfunction
