@@ -192,4 +192,15 @@ describe "rubyhash plugin" do
     end
 
   end
+
+  describe "overriding default keymappings" do
+    it "does not set the keymappings if rubyhash_map_keys is set to 0" do
+      input_buffer = %q|:key_one => 'one'|
+      @commands.unshift(":let rubyhash_map_keys=0")
+      @commands += [ '\rr' ]
+
+      result = @runner.run(:commands => @commands.join("\n")+"\n", :input_file => input_buffer)
+      result.body.should_not == %q|key_one: 'one'|
+    end
+  end
 end
