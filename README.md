@@ -8,9 +8,19 @@ vim-rubyhash is a plugin that can convert the keys of a Ruby hash literal to one
 * strings
 * Ruby-1.9 format 
 
+## Usage
+
+To perform linewise conversions, the following are the default mappings:
+
+* <Leader>rs to convert all keys to symbols
+* <Leader>rt to convert all keys to strings
+* <Leader>rr to convert all keys to Ruby 1.9 format
+
+The defaults can be overridden - details in the docs.
+
 ## Caveat Emptor
 
-For now, the regular expressions that recognise hash keys are geared towards phrases containing only letters, numbers and
+The regular expressions that recognise hash keys are geared towards phrases containing only letters, numbers and
 underscores. This is admittedly, very limited, but I am hoping that, for now it will suffice for 80% of use cases. 
 
 ## Installation
@@ -28,7 +38,7 @@ currently busy completing his [TPS reports](http://www.youtube.com/watch?v=Fy3rj
 
 ## License
 
-symbols-strings is licensed under the MIT license
+rubyhash is licensed under the MIT license
 
 Copyright (C) 2011 by Rory McKinley
 
