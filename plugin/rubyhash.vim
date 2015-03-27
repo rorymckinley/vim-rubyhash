@@ -7,6 +7,12 @@ if g:rubyhash_map_keys==1
   nnoremap <silent> <Leader>rt :call ToStringKeysLinewise()<CR>
   nnoremap <silent> <Leader>rr :call To19KeysLinewise()<CR>
   nnoremap <silent> <Leader>rq :call ToSingleQuotedStringKeysLinewise()<CR>
+ 
+  " add bindings that work in visual line mode
+  vnoremap <silent> <Leader>rs :call ToSymbolKeysLinewise()<CR>
+  vnoremap <silent> <Leader>rt :call ToStringKeysLinewise()<CR>
+  vnoremap <silent> <Leader>rr :call To19KeysLinewise()<CR>
+  vnoremap <silent> <Leader>rq :call ToSingleQuotedStringKeysLinewise()<CR>
 endif
 
 function! ToSymbolKeysLinewise()
