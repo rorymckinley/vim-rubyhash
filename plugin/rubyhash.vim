@@ -23,7 +23,6 @@ function! ToStringKeysLinewise()
   " :ruby Convert::to_strings
 endfunction
 
-" ruby << EOF
 " module Convert
 "   def self.to_symbols
 "     search_and_replace([ 
@@ -54,4 +53,3 @@ endfunction
 "     VIM::Buffer.current.line = contents
 "   end
 " end
-" EOF
