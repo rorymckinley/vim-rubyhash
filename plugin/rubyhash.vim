@@ -9,19 +9,13 @@ if g:rubyhash_map_keys==1
 endif
 
 function! ToSymbolKeysLinewise()
-  call setline('.', substitute(substitute(getline('.'),
-               '[''"]\(\w\+\)[''"]\(?=\s*=>\)', '\1:', 'g'),
-               '\(\(?:\{|,|^\)\s*\)\(\w\+\):', '\1:\2 =>', 'g'))
+  call setline('.', substitute(substitute(getline('.'), '[''"]\(\w\+\)[''"]\(?=\s*=>\)', '\1:', 'g'), '\(\(?:\{|,|^\)\s*\)\(\w\+\):', '\1:\2 =>', 'g'))
 endfunction
 
 function! To19KeysLinewise()
-  call setline('.', substitute(substitute(getline('.'),
-               ':\(\w\+\)\s*=>', '\1:', 'g'),
-               '[''"]\(\w\+\)[''"]\s*=>', '\1:', 'g'))
+  call setline('.', substitute(substitute(getline('.'), ':\(\w\+\)\s*=>', '\1:', 'g'), '[''"]\(\w\+\)[''"]\s*=>', '\1:', 'g'))
 endfunction
 
 function! ToStringKeysLinewise()
-  call setline('.', substitute(substitute(getline('.'),
-               ':\(\w\+\)\(?=\s*=>\)', '"\1"', 'g'),
-               '\(\(?:\{|,|^\)\s*\)\(\w\+\):', '\1"\2" =>', 'g'))
+  call setline('.', substitute(substitute(getline('.'), ':\(\w\+\)\(?=\s*=>\)', '"\1"', 'g'), '\(\(?:\{|,|^\)\s*\)\(\w\+\):', '\1"\2" =>', 'g'))
 endfunction
