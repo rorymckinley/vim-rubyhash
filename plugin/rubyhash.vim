@@ -15,7 +15,7 @@ endfunction
 function! To19KeysLinewise()
   " :ruby Convert::to_19
   let line=getline('.')
-  let line19 = substitute(substitute(line, ':\(\w\+\)\s*=>', '\1:', ''), '[''"]\(\w\+\)[''"]\s*=>', '', '')
+  let line19 = substitute(substitute(line, ':\(\w\+\)\s*=>', '\1:', 'g'), '[''"]\(\w\+\)[''"]\s*=>', '\1:', 'g')
   call setline('.', line19)
 endfunction
 
